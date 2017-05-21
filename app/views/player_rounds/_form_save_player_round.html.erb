@@ -1,0 +1,10 @@
+<%= form_for([@round, @player_round]) do |f| %>
+   <% if @player_round.errors.any? %>
+      <ul>
+         <% @player_round.errors.each do |atributo, mensaje| %>
+         <li> <%= mensaje %> </li>
+         <% end %>
+      </ul>
+   <% end %>   
+   <%= f.submit "Enviar" %> <%= link_to "Volver", @round %>
+<% end %>

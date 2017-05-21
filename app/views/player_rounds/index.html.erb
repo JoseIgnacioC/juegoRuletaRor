@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Juego de la Ruleta</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Amount</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @player_rounds.each do |player_round| %>
+      <tr>
+        <td><%= player_round.amount %></td>
+        <td><%= link_to 'Show', player_round %></td>
+        <td><%= link_to 'Edit', edit_player_round_path(player_round) %></td>
+        <td><%= link_to 'Destroy', player_round, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Player Round', new_player_round_path %>

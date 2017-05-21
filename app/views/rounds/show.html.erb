@@ -1,0 +1,46 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Number:</strong>
+  <%= @round.number %>
+</p>
+
+<p>
+  <strong>Datetime:</strong>
+  <%= @round.dateTime %>
+</p>
+
+<p>
+  <strong>Conservative:</strong>
+  <%= @round.conservative %>
+</p>
+
+<p>
+  <strong>Result:</strong>
+  <%= @round.result %>
+</p>
+
+
+<p> <%= link_to "Agregar una apuesta", new_round_player_round_path(@round) %> | <%= link_to "Volver", rounds_path %> </p>
+<hr />
+<ul style="list-style: none; padding: 0px;">
+	<h3>Apuestas </h3>
+   <% @player_rounds.each do |player_round| %>   
+   <li>
+
+      <div> <%= player_round.amount %> </div>
+      <div> <%= player_round.id %> </div>
+      <div> <%= player_round.player.name %> </div>
+      <p> 
+         <%= link_to "Editar", edit_round_player_round_path(@round, player_round) %>
+         | 
+         <%= link_to "Eliminar", round_player_round_path(@round, player_round), :confirm => "Seguro desea eliminar este comentario?", :method => :delete %> 
+         </p>
+         <hr />
+   </li>
+ <% end %>
+</ul>
+
+
+<%= link_to 'Edit', edit_round_path(@round) %> |
+<%= link_to 'Back', rounds_path %>
