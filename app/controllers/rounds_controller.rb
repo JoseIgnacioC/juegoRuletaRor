@@ -28,6 +28,7 @@ class RoundsController < ApplicationController
   def create
     @round = Round.new(round_params)
     
+
     @dateTime = Time.new
     @conservative = false
     @result = resultRulleteBet

@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   
 
+  resources :forecasts
   root :to => "player_rounds#index"
   
   resources :player_rounds
