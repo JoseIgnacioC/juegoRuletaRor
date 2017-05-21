@@ -30,7 +30,7 @@ class RoundsController < ApplicationController
     
 
     @dateTime = Time.new
-    @conservative = false
+    @conservative = isConservative
     @result = resultRulleteBet
 
     @round.dateTime = @dateTime
@@ -71,6 +71,37 @@ class RoundsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def isConservative
+
+    tempHigh = false
+
+    @forecast = Forecast.new({
+      :lat => -33.3444,
+      :lng => -70.8577
+      })
+    
+    @weather = @forecast.get_weather_data       
+    @current_weather = @weather.currently
+    @daily_weather = @weather.daily.data.first(7)
+
+    @tempCelsius = 0
+
+    @daily_weather.each do |day|                  
+      
+      tempCelsius = fahrToCel(day.apparentTemperatureMax)
+
+      puts 'temperatura es '
+      puts tempCelsius
+
+      if tempCelsius >= 25
+        tempHigh = true
+      end
+    end
+
+    return tempHigh
+  end
+
 
   def addPlayerRound(round_id)
 
@@ -186,6 +217,13 @@ class RoundsController < ApplicationController
     end
         
     return result
+  end
+
+  def fahrToCel(temp)
+      tempCelsius = temp - 32
+      tempCelsius = tempCelsius*5
+      tempCelsius = tempCelsius/9
+      return tempCelsius
   end
 
   private
