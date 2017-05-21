@@ -45,10 +45,6 @@ class RoundsController < ApplicationController
       format.html { render :new }
       format.json { render json: @round.errors, status: :unprocessable_entity }
     end
-    
-
-    
-
   end
 
   # PATCH/PUT /rounds/1
@@ -102,6 +98,7 @@ class RoundsController < ApplicationController
 
       if @player_round.save()
         varAux = true
+        playRound(@amount, @betValue, @round.result, @player)
       else
         varAux = false
       end
@@ -115,6 +112,32 @@ class RoundsController < ApplicationController
 
   end
 
+  def playRound(amount, betValue, result, player)  
+
+    amountWon = amount * -1
+
+    puts "PlayRound"
+    puts player.name
+    puts player.money
+    puts amountWon
+
+    if betValue == result
+
+      if betValue == 'Verde'
+        amountWon = amountWon + (amount*15)
+      elsif betValue == 'Rojo' or betValue == 'Negro'
+        amountWon = amountWon + (amount*2)
+      else
+        puts 'Error en colores'        
+      end        
+    end    
+
+    puts amountWon
+    newMoney = amountWon + player.money
+
+    player.money = newMoney
+    player.save()
+  end
 
 
   def amountBet(money, conservative)
