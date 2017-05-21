@@ -11,7 +11,7 @@ class RoundsController < ApplicationController
   # GET /rounds/1.json
   def show
     @round = Round.find(params[:id])
-    @player_rounds = PlayerRound.select("id, amount, betValue, player_id, round_id").where(:round_id => params[:id])
+    @players_rounds = PlayerRound.select("id, amount, betValue, player_id, round_id").where(:round_id => params[:id])
   end
 
   # GET /rounds/new
