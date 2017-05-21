@@ -5,6 +5,7 @@ class PlayerRoundsController < ApplicationController
   # GET /player_rounds.json
   def index
     @player_rounds = PlayerRound.all
+    @rounds = Round.all
   end
 
   # GET /player_rounds/1

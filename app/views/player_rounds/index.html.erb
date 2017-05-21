@@ -2,6 +2,58 @@
 
 <h1>Juego de la Ruleta</h1>
 
+
+<h2> Rondas </h2>
+
+<% count = 1 %>
+
+<% @rounds.each do |round| %>
+  
+  <h3>Ronda  <%=count %> </h3>
+  <% count = count + 1 %>
+  <div style='border:1px solid black'>
+    <table >
+      <thead>
+        <tr>
+          <th>Resultado</th>
+          <th>Fecha</th>
+          <th>Temperatura mayor a 50°</th>
+        </tr>
+      </thead>  
+      <tbody>
+        <tr>
+          <td> <%= round.result %> </td>
+          <td> <%= round.dateTime %> </td>
+          <td> <%= round.conservative %> </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Nombre Jugador</th>
+          <th>Cantidad apostada </th>
+          <th>Color apostado </th>
+        </tr>
+      </thead>
+      <tbody>
+
+      <% @player_rounds.each do |player_round| %>
+        <% if player_round.round.id == round.id %>
+          
+          <tr>
+            <td> <%= player_round.player.name  %> </td>
+            <td> <%= player_round.amount  %> </td>
+            <td> <%= player_round.betValue  %> </td>
+          </tr>
+        <% end %>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>
+
 <table>
   <thead>
     <tr>
