@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170521024837) do
+ActiveRecord::Schema.define(version: 20170521045755) do
 
   create_table "player_rounds", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.integer "amount"
@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 20170521024837) do
     t.datetime "updated_at", null: false
     t.bigint "round_id"
     t.bigint "player_id"
+    t.string "betValue"
     t.index ["player_id"], name: "index_player_rounds_on_player_id"
     t.index ["round_id"], name: "index_player_rounds_on_round_id"
   end
