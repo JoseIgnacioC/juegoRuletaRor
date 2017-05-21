@@ -25,18 +25,26 @@ class PlayerRoundsController < ApplicationController
   # POST /player_rounds
   # POST /player_rounds.json
   def create
-    
+
     for player in Player.all do
 
       puts player.name
 
-      @player = player
-      @amount = 5000
+      @player = player      
       @round = Round.find(params[:round_id])
+
+      puts "el dinero que tiene es:"
+      puts player.money
+
+      @amount = amountBet(player.money, @round.conservative)
+
+      @betValue = resultBet
+
       @player_round = PlayerRound.new({
         :amount => @amount,
         :round => @round,
-        :player => @player
+        :player => @player,
+        :betValue => @betValue
       })    
 
       puts @round.conservative
@@ -77,6 +85,52 @@ class PlayerRoundsController < ApplicationController
       format.html { redirect_to player_rounds_url, notice: 'Player round was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def resultBet
+    
+    prob = Random.new.rand(1..100)
+    result = ""
+
+    puts prob
+
+    if prob <= 2
+      result = "Verde"
+    elsif prob >= 3 and prob <= 51
+      result = "Rojo"
+    else
+      result = "Negro"
+    end
+        
+    return result
+  end
+
+  def amountBet(money, conservative)
+
+    puts "money es:"
+    puts money
+
+    betMoney = 0
+
+    if(conservative)
+      prob = Random.new.rand(4..10)      
+    else
+      prob = Random.new.rand(8..15)
+    end
+
+    prob = (prob * 1.0) / 100    
+
+    if money < 1000 and money != 0
+      betMoney = money
+    elsif money != 0
+      betMoney = money * prob
+    end
+      
+    betMoney = betMoney.to_i
+    puts betMoney
+
+    return betMoney          
+
   end
 
   private
