@@ -22,7 +22,6 @@ class PlayerRoundsController < ApplicationController
     @daily_weather.each do |day|
       @daysName << Time.at(day.time).strftime('%A')
       
-
       @tempMaxs << fahrToCel(day.apparentTemperatureMax)
     end    
   end
@@ -48,13 +47,8 @@ class PlayerRoundsController < ApplicationController
 
     for player in Player.all do
 
-      puts player.name
-
       @player = player      
       @round = Round.find(params[:round_id])
-
-      puts "el dinero que tiene es:"
-      puts player.money
 
       @amount = amountBet(player.money, @round.conservative)
 

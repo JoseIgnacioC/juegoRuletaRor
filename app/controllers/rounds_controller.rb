@@ -26,7 +26,7 @@ class RoundsController < ApplicationController
   # POST /rounds
   # POST /rounds.json
   def create
-    @round = Round.new(round_params)
+    @round = Round.new()
     
 
     @dateTime = Time.new
@@ -38,9 +38,7 @@ class RoundsController < ApplicationController
     @round.result = @result
 
     
-    if @round.save
-      puts "El indice es: "
-      puts @round.id
+    if @round.save      
       addPlayerRound(@round.id)
     else
       format.html { render :new }
@@ -77,8 +75,8 @@ class RoundsController < ApplicationController
     tempHigh = false
 
     @forecast = Forecast.new({
-      :lat => -33.3444,
-      :lng => -70.8577
+      :lat => -33.4569400,
+      :lng => -70.6482700
       })
     
     @weather = @forecast.get_weather_data       
@@ -106,27 +104,23 @@ class RoundsController < ApplicationController
   def addPlayerRound(round_id)
 
     for player in Player.all do
-
-      puts player.name
-
+      
       @player = player      
       @round = Round.find(round_id)
-
-      puts "el dinero que tiene es:"
-      puts player.money
-
+    
       @amount = amountBet(player.money, @round.conservative)
+      @betValue = "NO APUESTA"
 
-      @betValue = resultRulleteBet
-
+      if @amount != 0        
+        @betValue = resultRulleteBet
+      end
+      
       @player_round = PlayerRound.new({
         :amount => @amount,
         :round => @round,
         :player => @player,
         :betValue => @betValue
       })    
-
-      puts @round.conservative
 
       if @player_round.save()
         varAux = true
@@ -147,12 +141,7 @@ class RoundsController < ApplicationController
   def playRound(amount, betValue, result, player)  
 
     amountWon = amount * -1
-
-    puts "PlayRound"
-    puts player.name
-    puts player.money
-    puts amountWon
-
+    
     if betValue == result
 
       if betValue == 'Verde'
@@ -163,8 +152,7 @@ class RoundsController < ApplicationController
         puts 'Error en colores'        
       end        
     end    
-
-    puts amountWon
+    
     newMoney = amountWon + player.money
 
     player.money = newMoney
@@ -173,9 +161,6 @@ class RoundsController < ApplicationController
 
 
   def amountBet(money, conservative)
-
-    puts "money es:"
-    puts money
 
     betMoney = 0
 
