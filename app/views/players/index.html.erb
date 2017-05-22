@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<div class="container">
+
   <div class="row" style="margin-bottom: 50px;">    
           
       <h1 class="text-center">Jugadores</h1>
@@ -28,9 +28,13 @@
           <% end %>
         </tbody>
       </table>
+      
       <%= link_to 'Agregar Nuevo Jugador', new_player_path %>
+      |
+      <%= link_to 'Volver a inicio', root_path %>
+      
     </div>
   </div>
-</div>
+
 
 
