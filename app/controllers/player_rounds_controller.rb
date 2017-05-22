@@ -4,8 +4,27 @@ class PlayerRoundsController < ApplicationController
   # GET /player_rounds
   # GET /player_rounds.json
   def index
+    @players = Player.all
     @player_rounds = PlayerRound.all
     @rounds = Round.all
+
+    @forecast = Forecast.new({
+      :lat => -33.3444,
+      :lng => -70.8577
+      })
+    
+    @weather = @forecast.get_weather_data
+    @daily_weather = @weather.daily.data.first(7)
+
+    @daysName = Array.new
+    @tempMaxs = Array.new
+
+    @daily_weather.each do |day|
+      @daysName << Time.at(day.time).strftime('%A')
+      
+
+      @tempMaxs << fahrToCel(day.apparentTemperatureMax)
+    end    
   end
 
   # GET /player_rounds/1
@@ -132,6 +151,14 @@ class PlayerRoundsController < ApplicationController
 
     return betMoney          
 
+  end
+
+  def fahrToCel(temp)
+    tempCelsius = temp - 32
+    tempCelsius = tempCelsius*5
+    tempCelsius = tempCelsius/9
+    tempCelsius = '%.0f' % tempCelsius
+    return tempCelsius
   end
 
   private

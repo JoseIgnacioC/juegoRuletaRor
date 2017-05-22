@@ -223,6 +223,7 @@ class RoundsController < ApplicationController
       tempCelsius = temp - 32
       tempCelsius = tempCelsius*5
       tempCelsius = tempCelsius/9
+      tempCelsius = '%.0f' % tempCelsius
       return tempCelsius
   end
 
