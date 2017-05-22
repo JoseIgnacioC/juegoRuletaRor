@@ -37,6 +37,8 @@ gem 'jbuilder', '~> 2.5'
 gem 'forecast_io'
 gem 'figaro'
 
+#Gemas para el cron job
+gem 'whenever', '~> 0.9.4', :require => false
 # Gemas para jquery
 gem 'jquery-rails'
 # Gemas para bootstrap
