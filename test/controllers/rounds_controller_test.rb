@@ -17,7 +17,7 @@ class RoundsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create round" do
     assert_difference('Round.count') do
-      post rounds_url, params: { round: { conservative: @round.conservative, dateTime: @round.dateTime, number: @round.number, result: @round.result } }
+      post rounds_url, params: { round: { conservative: @round.conservative, dateTime: @round.dateTime, result: @round.result } }
     end
 
     assert_redirected_to round_url(Round.last)
@@ -34,7 +34,7 @@ class RoundsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update round" do
-    patch round_url(@round), params: { round: { conservative: @round.conservative, dateTime: @round.dateTime, number: @round.number, result: @round.result } }
+    patch round_url(@round), params: { round: { conservative: @round.conservative, dateTime: @round.dateTime, result: @round.result } }
     assert_redirected_to round_url(@round)
   end
 

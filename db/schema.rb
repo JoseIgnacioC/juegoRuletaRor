@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170521181351) do
+ActiveRecord::Schema.define(version: 20170522054827) do
 
   create_table "forecasts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.float "lat", limit: 24
@@ -38,7 +38,6 @@ ActiveRecord::Schema.define(version: 20170521181351) do
   end
 
   create_table "rounds", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
-    t.integer "number"
     t.datetime "dateTime"
     t.boolean "conservative"
     t.string "result"
